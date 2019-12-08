@@ -1,0 +1,27 @@
+{
+  "name": "apollo-federation-resource-limiting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@apollo/gateway": "^0.10.8",
+    "apollo-server": "^2.9.7",
+    "graphql": "^14.5.8",
+    "graphql-cost-analysis": "^1.0.3",
+    "graphql-depth-limit": "^1.1.0",
+    "graphql-scalar": "0.0.11",
+    "graphql-validation-complexity": "^0.2.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1",
+    "wait-port": "^0.2.6"
+  },
+  "scripts": {
+    "start-example-test-server-1": "nodemon exampleTestServer1.js --watch ",
+    "start-example-test-server-2": "nodemon exampleTestServer2.js --watch",
+    "start-apollo-gateway-graphql-validation-complexity": "wait-port example-test-server-1:4000 && wait-port example-test-server-2:4000 && nodemon apollo-gateway-graphql-validation-complexity.js --watch",
+    "start-apollo-gateway-graphql-cost-analysis": "wait-port example-test-server-1:4000 && wait-port example-test-server-2:4000 && nodemon apollo-gateway-graphql-cost-analysis.js"
+  },
+  "author": "Niall O' Connor",
+  "license": "ISC"
+}
