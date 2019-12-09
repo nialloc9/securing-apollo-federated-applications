@@ -77,7 +77,7 @@ After research and working with both complexity limiting libraries it is conclud
   const depthLimit = require('graphql-depth-limit');
 
   validationRules: [
-    depthLimit(10) // prevents too deeply nested queries and cyclcal queiries
+    depthLimit(10) // prevents too deeply nested queries and cyclical queiries
   ],
 ```
 
