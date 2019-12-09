@@ -27,7 +27,7 @@ After research and working with both complexity limiting libraries it is conclud
 
 ## Resource limiting
 
-### graphql-validation-complexity
+### apollo-gateway-graphql-cost-analysis
 
     $ docker-compose up apollo-gateway-graphql-cost-analysis example-test-server-1 example-test-server-2
 
@@ -72,16 +72,6 @@ After research and working with both complexity limiting libraries it is conclud
 <p align="center">
   <img src="/images/screenshots/amount-limiting-denied.png" width="700" title="graphql validation amount denied">
 </p>
-
-### graphql-depth-limit
-
-```js
-  const depthLimit = require('graphql-depth-limit');
-
-  validationRules: [
-    depthLimit(10) // prevents too deeply nested queries and cyclical queiries
-  ],
-```
 
 ### graphql-depth-limit
 
