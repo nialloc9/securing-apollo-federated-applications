@@ -5,10 +5,20 @@ const depthLimit = require('graphql-depth-limit');
 
 const { NODE_ENV, SERVER_1_URL, SERVER_2_URL } = process.env;
 
-const complexityLimit = createComplexityLimitRule(1000, {
+// change this values and see test validation in playground
+const config = {
+  maximumCost: 1000,
   scalarCost: 200,
   objectCost: 10, // Default is 0.
   listFactor: 20, // Default is 10.
+  depthLimit: 10
+}
+
+// less control then graphql-cost-analysis
+const complexityLimit = createComplexityLimitRule(config.maximumCost, {
+  scalarCost: config.scalarCost,
+  objectCost: config.objectCost, // Default is 0.
+  listFactor: config.listFactor, // Default is 10.
   onCost: (cost) => {
     console.log('query cost:', cost);
   },
@@ -35,7 +45,7 @@ const server = new ApolloServer({
   },
   validationRules: [
     complexityLimit,
-    depthLimit(10) // prevents too deeply nested queries and cyclcal queiries
+    depthLimit(config.depthLimit) // prevents too deeply nested queries and cyclcal queiries
   ],
 });
 

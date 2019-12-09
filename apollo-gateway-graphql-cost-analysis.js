@@ -5,35 +5,39 @@ const depthLimit = require('graphql-depth-limit');
 
 const { NODE_ENV, SERVER_1_URL, SERVER_2_URL } = process.env;
 
+// change this values and see test validation in playground
+const config = {
+  maximumCost: 1000,
+  hello1Complexity: 200,
+  paginationExampleLastComplexity: 500, // Default is 0.
+  hello2Complexity: 1200, // Default is 10.
+  depthLimit: 10
+}
+
 // Can determine through the schema using apollo engine and assign a value based on the p99 service time
 const costMap = {
     Query: {
         hello1: {
-          complexity: 200,
-        },
-        paginationExample: {
-          multipliers: ['last'],
-          useMultipliers: true,
-          complexity: 500,
+          complexity: config.hello1Complexity,
         }
     },
     Query: {
         hello2: {
-          complexity: 1200,
+          complexity: config.hello2Complexity,
         },
     },
     Query: {
       paginationExample: {
         multipliers: ['last'],
         useMultipliers: true,
-        complexity: 500,
+        complexity: config.paginationExampleLastComplexity,
       }
     }
 };
 
 const complexityLimit = costAnalysis({
     costMap,
-    maximumCost: 1000,
+    maximumCost: config.maximumCost,
     onComplete: cost => console.log("cost", cost)
 })
 
@@ -58,7 +62,7 @@ const server = new ApolloServer({
   },
   validationRules: [
     complexityLimit,
-    depthLimit(10) // prevents too deeply nested queries and cyclcal queiries
+    depthLimit(config.depthLimit) // prevents too deeply nested queries and cyclcal queiries
   ],
 });
 
