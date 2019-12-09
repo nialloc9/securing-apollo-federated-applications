@@ -1,5 +1,5 @@
-# resource limiting
-An example of using differant technologies to to handle resource limiting a federated graphql API using [Apollo Server](https://www.apollographql.com/docs/apollo-server/). Depth limiting and amount limiting are used with both examples but graphql-validation-complexity is used with one and graphql-cost-analysis is used with the other for complexity limiting. This is to compare the 2. Both of these can be used with directives but since apollo does not support this on the federated gateway then finding a way to do this is imperitive.
+# Resource limiting
+An example of using differant technologies to handle resource limiting a federated graphql API using [Apollo Server](https://www.apollographql.com/docs/apollo-server/). Depth limiting and amount limiting are used with both examples but graphql-validation-complexity is used with one and graphql-cost-analysis is used with the other for complexity limiting. This is to compare the two. Both of these can be used with directives but since apollo does not support this on the federated gateway then finding a way to do this is imperitive.
 
 After research and working with both complexity limiting libraries it is concluded that graphql-cost-analysis and graphql-validation-complexity can be used without directives but graphql-cost-analysis is significantly more flexible using a cost map. This allows us to define a complexity map on the gateway against our schema.
 
