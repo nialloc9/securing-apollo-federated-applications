@@ -53,8 +53,8 @@ const server = new ApolloServer({
   playground: NODE_ENV !== 'production',
   subscriptions: false,
   formatError: error => {
-    console.log(error);
-    return error;
+    console.error("errors", error);
+    return new Error("Internal Error");
   },
   formatResponse: response => {
     console.log(response);

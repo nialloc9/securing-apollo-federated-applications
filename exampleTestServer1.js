@@ -5,13 +5,17 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const query = gql`
   type Query {
-    hello1: String
+    hello1: String,
+    exampleInternalError: String
   }
 `;
 
 const resolvers = {
     Query: {
         hello1: () => "Hello from test1 server",
+        exampleInternalError: () => {
+          throw new Error("Hello1 Error");
+        },
     },
 };
 

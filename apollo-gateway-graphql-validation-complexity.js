@@ -3,7 +3,7 @@ const {ApolloGateway} = require('@apollo/gateway');
 const { createComplexityLimitRule } = require('graphql-validation-complexity');
 const depthLimit = require('graphql-depth-limit');
 
-const { NODE_ENV, SERVER_1_URL, SERVER_2_URL } = process.env;
+const { NODE_ENV, SERVER_1_URL, SERVER_2_URL, NODE_ENV } = process.env;
 
 // change this values and see test validation in playground
 const config = {
@@ -36,16 +36,15 @@ const server = new ApolloServer({
   playground: NODE_ENV !== 'production',
   subscriptions: false,
   formatError: error => {
-    console.log(error);
-    return error;
+    console.error("errors", error);
+    return new Error("Internal Error");
   },
   formatResponse: response => {
-    console.log(response);
     return response;
   },
   validationRules: [
     complexityLimit,
-    depthLimit(config.depthLimit) // prevents too deeply nested queries and cyclcal queiries
+    depthLimit(config.depthLimit), // prevents too deeply nested queries and cyclcal queiries
   ],
 });
 

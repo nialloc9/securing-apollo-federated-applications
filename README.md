@@ -1,5 +1,5 @@
-# Resource limiting
-An example of using differant technologies to handle resource limiting a federated graphql API using [Apollo Server](https://www.apollographql.com/docs/apollo-server/). Depth limiting and amount limiting are used with both examples but graphql-validation-complexity is used with one and graphql-cost-analysis is used with the other for complexity limiting. This is to compare the two. Both of these can be used with directives but since apollo does not support this on the federated gateway then finding a way to do this is imperitive.
+# Securing a federated graphql api
+An example of using differant technologies to secure a federated graphql API using [Apollo Server](https://www.apollographql.com/docs/apollo-server/). Depth limiting and amount limiting are used with both examples but graphql-validation-complexity is used with one and graphql-cost-analysis is used with the other for complexity limiting. This is to compare the two. Both of these can be used with directives but since apollo does not support this on the federated gateway then finding a way to do this is imperitive.
 
 After research and working with both complexity limiting libraries it is concluded that graphql-cost-analysis and graphql-validation-complexity can be used without directives but graphql-cost-analysis is significantly more flexible using a cost map. This allows us to define a complexity map on the gateway against our schema.
 
@@ -24,6 +24,8 @@ After research and working with both complexity limiting libraries it is conclud
 ### Running the server
     $ npm install
     $ docker-compose up {federated service name} example-test-server-1 example-test-server-2 (e.g docker-compose up apollo-gateway-graphql-cost-analysis example-test-server-1 example-test-server-2)
+
+## Resource limiting
 
 ### graphql-validation-complexity
 
@@ -81,3 +83,34 @@ After research and working with both complexity limiting libraries it is conclud
   ],
 ```
 
+### graphql-depth-limit
+
+```js
+  const depthLimit = require('graphql-depth-limit');
+
+  validationRules: [
+    depthLimit(10) // prevents too deeply nested queries and cyclical queiries
+  ],
+```
+
+## Error handling
+
+### Verbose error messaging
+
+To prevent unwanted insights into your application being passed to the user verbose error messaging should be added.
+
+
+```js
+  const server = new ApolloServer({
+    ....
+    formatError: error => {
+      console.error("errors", error);
+      return new Error("Internal Error");
+    },
+    ...
+  });
+```
+
+<p align="center">
+  <img src="/images/screenshots/example-internal-error.png" width="700" title="Internal Error">
+</p>
