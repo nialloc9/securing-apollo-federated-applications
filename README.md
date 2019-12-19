@@ -1,11 +1,11 @@
 # Securing a federated graphql api
-An example of using differant technologies to secure a federated graphql API using [Apollo Server](https://www.apollographql.com/docs/apollo-server/). Depth limiting and amount limiting are used with both examples but graphql-validation-complexity is used with one and graphql-cost-analysis is used with the other for complexity limiting. This is to compare the two. Both of these can be used with directives but since apollo does not support this on the federated gateway then finding a way to do this is imperitive.
+An example of using differant technologies to secure a federated graphql API using [Apollo Server](https://www.apollographql.com/docs/apollo-server/). Depth limiting, amount limiting, and rate limiting are used with both examples but graphql-validation-complexity is used with one and graphql-cost-analysis is used with the other for complexity limiting. This is to compare the two. Both of these can be used with directives but since apollo does not support this when using federation finding a way to do this is imperitive.
 
 After research and working with both complexity limiting libraries it is concluded that graphql-cost-analysis and graphql-validation-complexity can be used without directives but graphql-cost-analysis is significantly more flexible using a cost map. This allows us to define a complexity map on the gateway against our schema.
 
 In some of the examples I have added validation at the gateway level to demonstrate it can be done here but in most cases you would want it on the individual entities. Take complexity for example. If you said the gateway can have a maximum query complexity of 5000 points then you would be limiting yourself as you would have to have this as the lowest complexity of the entities as all 5000 could be passed to just 1 entity. However, maybe entity 2 can handle more and therefore should be at the entity level.
 
-The main difference between federated applications and regular applications is that directives do not work so therefore other alternatives had to be found. The issue can be found [here](https://github.com/apollographql/apollo-feature-requests/issues/145). (Update as of 19/12/19 schemas can merged using mergeSchemas function and directives can added)
+The main difference between federated applications and regular applications is that directives do not work so therefore other alternatives had to be found. The issue can be found [here](https://github.com/apollographql/apollo-feature-requests/issues/145). (Update as of 19/12/19 schemas can merged using mergeSchemas function and directives can be added)
 
 <p align="center">
   <img src="/images/attack.jpg" width="700" title="Attacking API">
