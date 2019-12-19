@@ -11,8 +11,14 @@ services:
       - ./package.json:/usr/app/package.json:cached
     working_dir: /usr/app
     command: npm run start-example-test-server-1
+    environment:
+      - RHOST=redis
     ports:
       - 4001:4000
+    links:
+      - redis
+    depends_on:
+      - redis
 
   example-test-server-2:
     build:
@@ -24,31 +30,37 @@ services:
       - ./package.json:/usr/app/package.json:cached
     working_dir: /usr/app
     command: npm run start-example-test-server-2
+    environment:
+      - RHOST=redis
     ports:
       - 4002:4000
-      
-  apollo-gateway-graphql-validation-complexity:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./apollo-gateway-graphql-validation-complexity.js:/usr/app/apollo-gateway-graphql-validation-complexity.js:cached
-      - ./node_modules:/usr/app/node_modules:cached
-      - ./package.json:/usr/app/package.json:cached
-    working_dir: /usr/app
-    command: npm run start-apollo-gateway-graphql-validation-complexity
-    ports:
-      - 4000:4000
-      - 51457:4000
-    depends_on:
-      - example-test-server-1
-      - example-test-server-2
     links:
-      - example-test-server-1
-      - example-test-server-2
-    environment:
-      - SERVER_1_URL=http://example-test-server-1:4000/graphql
-      - SERVER_2_URL=http://example-test-server-2:4000/graphql
+      - redis
+    depends_on:
+      - redis
+      
+  # apollo-gateway-graphql-validation-complexity:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./apollo-gateway-graphql-validation-complexity.js:/usr/app/apollo-gateway-graphql-validation-complexity.js:cached
+  #     - ./node_modules:/usr/app/node_modules:cached
+  #     - ./package.json:/usr/app/package.json:cached
+  #   working_dir: /usr/app
+  #   command: npm run start-apollo-gateway-graphql-validation-complexity
+  #   ports:
+  #     - 4000:4000
+  #     - 51457:4000
+  #   depends_on:
+  #     - example-test-server-1
+  #     - example-test-server-2
+  #   links:
+  #     - example-test-server-1
+  #     - example-test-server-2
+  #   environment:
+  #     - SERVER_1_URL=http://example-test-server-1:4000/graphql
+  #     - SERVER_2_URL=http://example-test-server-2:4000/graphql
 
   apollo-gateway-graphql-cost-analysis:
     build:
@@ -72,3 +84,8 @@ services:
     environment:
       - SERVER_1_URL=http://example-test-server-1:4000/graphql
       - SERVER_2_URL=http://example-test-server-2:4000/graphql
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379

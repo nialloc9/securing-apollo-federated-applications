@@ -4,7 +4,6 @@ const costAnalysis = require('graphql-cost-analysis').default;
 const depthLimit = require('graphql-depth-limit');
 
 const { NODE_ENV, SERVER_1_URL, SERVER_2_URL } = process.env;
-
 // change this values and see test validation in playground
 const config = {
   maximumCost: 1000,
@@ -50,15 +49,11 @@ const gateway = new ApolloGateway({
 
 const server = new ApolloServer({
   gateway,
+  schema,
   playground: NODE_ENV !== 'production',
   subscriptions: false,
   formatError: error => {
-
-    console.log("here", error)
-    if(error.message.includes("RATE_LIMIT")){
-      return error;
-    }
-
+    console.error("errors", error);
     return new Error("Internal Error");
   },
   formatResponse: response => {
