@@ -89,13 +89,13 @@ The main difference between federated applications and regular applications is t
 
 ### Rate Limiting
 
-#### Cost okay
+#### Limit okay
 
 <p align="center">
   <img src="/images/screenshots/rate-limiting-okay.png" width="700" title="graphql validation rate limiting okay">
 </p>
 
-#### Cost denied
+#### Limit denied
 
 <p align="center">
   <img src="/images/screenshots/rate-limiting-denied.png" width="700" title="graphql validation rate limiting denied">
