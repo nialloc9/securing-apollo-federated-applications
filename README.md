@@ -5,7 +5,7 @@ After research and working with both complexity limiting libraries it is conclud
 
 In some of the examples I have added validation at the gateway level to demonstrate it can be done here but in most cases you would want it on the individual entities. Take complexity for example. If you said the gateway can have a maximum query complexity of 5000 points then you would be limiting yourself as you would have to have this as the lowest complexity of the entities as all 5000 could be passed to just 1 entity. However, maybe entity 2 can handle more and therefore should be at the entity level.
 
-The main difference between federated applications and regular applications is that directives do not work so therefore other alternatives had to be found.
+The main difference between federated applications and regular applications is that directives do not work so therefore other alternatives had to be found. The issue can be found [here](https://github.com/apollographql/apollo-feature-requests/issues/145). (Update as of 19/12/19 schemas can merged using mergeSchemas function and directives can added)
 
 <p align="center">
   <img src="/images/attack.jpg" width="700" title="Attacking API">
