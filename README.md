@@ -3,6 +3,10 @@ An example of using differant technologies to secure a federated graphql API usi
 
 After research and working with both complexity limiting libraries it is concluded that graphql-cost-analysis and graphql-validation-complexity can be used without directives but graphql-cost-analysis is significantly more flexible using a cost map. This allows us to define a complexity map on the gateway against our schema.
 
+In some of the examples I have added validation at the gateway level to demonstrate it can be done here but in most cases you would want it on the individual entities. Take complexity for example. If you said the gateway can have a maximum query complexity of 5000 points then you would be limiting yourself as you would have to have this as the lowest complexity of the entities as all 5000 could be passed to just 1 entity. However, maybe entity 2 can handle more and therefore should be at the entity level.
+
+The main difference between federated applications and regular applications is that directives do not work so therefore other alternatives had to be found.
+
 <p align="center">
   <img src="/images/attack.jpg" width="700" title="Attacking API">
 </p>
@@ -82,6 +86,20 @@ After research and working with both complexity limiting libraries it is conclud
     depthLimit(10) // prevents too deeply nested queries and cyclical queiries
   ],
 ```
+
+### Rate Limiting
+
+#### Cost okay
+
+<p align="center">
+  <img src="/images/screenshots/rate-limiting-okay.png" width="700" title="graphql validation rate limiting okay">
+</p>
+
+#### Cost denied
+
+<p align="center">
+  <img src="/images/screenshots/rate-limiting-denied.png" width="700" title="graphql validation rate limiting denied">
+</p>
 
 ### graphql-depth-limit
 

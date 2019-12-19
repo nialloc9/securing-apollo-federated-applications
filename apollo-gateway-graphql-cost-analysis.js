@@ -53,7 +53,12 @@ const server = new ApolloServer({
   playground: NODE_ENV !== 'production',
   subscriptions: false,
   formatError: error => {
-    console.error("errors", error);
+
+    console.log("here", error)
+    if(error.message.includes("RATE_LIMIT")){
+      return error;
+    }
+
     return new Error("Internal Error");
   },
   formatResponse: response => {

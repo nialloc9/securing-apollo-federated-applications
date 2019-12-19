@@ -9,18 +9,23 @@
     "graphql": "^14.5.8",
     "graphql-cost-analysis": "^1.0.3",
     "graphql-depth-limit": "^1.1.0",
+    "graphql-middleware": "^4.0.2",
+    "graphql-rate-limit": "^2.0.1",
     "graphql-scalar": "0.0.11",
-    "graphql-validation-complexity": "^0.2.5"
+    "graphql-shield": "^7.0.5",
+    "graphql-tools": "^4.0.6",
+    "graphql-validation-complexity": "^0.2.5",
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.1",
     "wait-port": "^0.2.6"
   },
   "scripts": {
-    "start-example-test-server-1": "nodemon exampleTestServer1.js --watch ",
-    "start-example-test-server-2": "nodemon exampleTestServer2.js --watch",
-    "start-apollo-gateway-graphql-validation-complexity": "wait-port example-test-server-1:4000 && wait-port example-test-server-2:4000 && nodemon apollo-gateway-graphql-validation-complexity.js --watch",
-    "start-apollo-gateway-graphql-cost-analysis": "wait-port example-test-server-1:4000 && wait-port example-test-server-2:4000 && nodemon apollo-gateway-graphql-cost-analysis.js"
+    "start-example-test-server-1": "nodemon --legacy-watch exampleTestServer1.js ",
+    "start-example-test-server-2": "nodemon --legacy-watch exampleTestServer2.js",
+    "start-apollo-gateway-graphql-validation-complexity": "wait-port example-test-server-1:4000 && wait-port example-test-server-2:4000 && nodemon --legacy-watch apollo-gateway-graphql-validation-complexity.js",
+    "start-apollo-gateway-graphql-cost-analysis": "wait-port example-test-server-1:4000 && wait-port example-test-server-2:4000 && nodemon --legacy-watch apollo-gateway-graphql-cost-analysis.js"
   },
   "author": "Niall O' Connor",
   "license": "ISC"
